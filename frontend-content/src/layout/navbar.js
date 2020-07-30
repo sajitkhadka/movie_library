@@ -83,8 +83,10 @@ var NavList = styled.ul`
     height: auto;
 
     li a:hover {
-      background-color: blueviolet;
+      background-color: #aaa;
       padding-left: 10px;
+      color: #fff;
+      border-radius: 5px;
     }
   }
 `;
@@ -121,10 +123,10 @@ class Navbar extends Component {
             </LogoButton>
             <NavList show={this.state.isOpen}>
               <li>
-                <Link to="/Login">Login</Link>
+                <Link to="/browse/movies">Movies</Link>
               </li>
               <li>
-                <Link to="/Signup">Sign up</Link>
+                <Link to="/browse/shows">TV Shows</Link>
               </li>
             </NavList>
           </Row>

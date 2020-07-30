@@ -1,0 +1,49 @@
+body {
+    font: 20px Montserrat, sans-serif;
+    line-height: 1.8;
+    height: 100vh;
+    background-color: #f8f8f8; /* Green */
+  }
+  p {font-size: 16px;}
+  .margin {margin-bottom: 45px;}
+  .bg-1 { 
+  }
+  .padding-top-100{
+      padding-top: 100px;
+  }
+  
+  .padding-top-50{
+      padding-top:50px;
+  }
+  .container-fluid {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+  .navbar {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+    letter-spacing: 5px;
+  }
+  .navbar-nav  li a:hover {
+    color: #1abc9c !important;
+  }
+  
+  .h-100{
+      height: 100%;
+  }
+  
+  .color-primary{
+    color: #333; 
+  }
+  
+  .my-card{
+      border: 1px solid #1abc9c;
+  transition: 0.3s;
+  padding: 20px 15px 15px 15px;
+  border-radius: 10px;
+  min-width: 600px;
+  }

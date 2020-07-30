@@ -3,7 +3,7 @@ import { Container, Row, Col, Button, Card } from "reactstrap";
 import ImageCard from "./ImageCard";
 import { Link } from "react-router-dom";
 
-const Example = (props) => {
+const ImageRow = (props) => {
   return (
     <div>
       <Card className="m-1">
@@ -14,8 +14,15 @@ const Example = (props) => {
               <Link to="/movie/action">View All</Link>
             </div>
           </Row>
-          <Row xs="4" className="mb-4">
-            <Col>
+          <Row xs="1" sm="2" lg="3" xl="4" className="mb-4">
+            {props.movies.map((movie) => {
+              return (
+                <Col>
+                  <ImageCard movie={movie} />
+                </Col>
+              );
+            })}
+            {/* <Col>
               <ImageCard />
             </Col>
             <Col>
@@ -27,6 +34,9 @@ const Example = (props) => {
             <Col>
               <ImageCard />
             </Col>
+            <Col>
+              <ImageCard />
+            </Col> */}
           </Row>
         </Container>
       </Card>
@@ -34,4 +44,4 @@ const Example = (props) => {
   );
 };
 
-export default Example;
+export default ImageRow;

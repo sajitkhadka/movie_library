@@ -4,6 +4,8 @@ import Navbar from "../layout/navbar";
 import styled from "styled-components";
 import movieImage from "./../img/movie_image.jpg";
 import { Card } from "reactstrap";
+import Spinner from "../components/spinner-component";
+import axios from "axios";
 
 import {
   Metadata,
@@ -13,79 +15,118 @@ import {
   Creators,
 } from "./styled-components/components";
 const HomePage = function (props) {
+  const [movie, setMovie] = useState([]);
+
+  const [error, setError] = useState("");
+
+  //`http://localhost:8080/RestServiceClient/api/movie/id/${props.history.match.params.title}
+  useEffect(() => {
+    axios
+      .get(
+        `http://localhost:8080/RestServiceClient/api/movie/id/${props.match.params.title}`
+      )
+      .then((response) => {
+        setMovie(response.data);
+        // setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setError("Sorry there was error loading the page. Try again later.");
+      });
+  }, []);
+
   return (
     <React.Fragment>
       <Navbar />
-      <section className="home-banner-area" id="home">
-        <div className="container">
-          <div className="row  text-md-left fullscreen">
-            <div className="home-banner left col align-items-center">
-              <div>
-                <Title>Sons of Anarchy</Title>
-                <Metadata>
-                  <MetadataItem>2008</MetadataItem>
-                  <MetadataItem>
-                    <span class="maturity-rating">
-                      <span
-                        style={{
-                          border: "1px solid #a1a1a1",
-                          padding: "0 5px",
-                        }}
-                      >
-                        TV-MA{" "}
+      {error ? (
+        <div className="d-flex justify-content-center">
+          <p className="text-danger">{error}</p>
+        </div>
+      ) : (
+        ""
+      )}
+      {movie.length ? (
+        <section className="home-banner-area" id="home">
+          <div className="container">
+            <div className="row  text-md-left fullscreen">
+              <div className="home-banner left col align-items-center">
+                <div>
+                  <Title>{movie.title}</Title>
+                  <Metadata>
+                    <MetadataItem>
+                      {movie.released ? movie.released.getFullYear() : "2000"}
+                    </MetadataItem>
+                    <MetadataItem>
+                      <span class="maturity-rating">
+                        <span
+                          style={{
+                            border: "1px solid #a1a1a1",
+                            padding: "0 5px",
+                          }}
+                        >
+                          PG
+                        </span>
                       </span>
-                    </span>
-                  </MetadataItem>
-                  <MetadataItem>
-                    <span class="duration">
-                      <span class="test_dur_str">7 Seasons</span>
-                    </span>
-                  </MetadataItem>
-                  <MetadataItem>Crime</MetadataItem>
-                </Metadata>
+                    </MetadataItem>
+                    <MetadataItem>
+                      <span class="duration">
+                        <span class="test_dur_str">{movie.length} min</span>
+                      </span>
+                    </MetadataItem>
+                    <MetadataItem>{movie.genre.genre}</MetadataItem>
+                  </Metadata>
 
-                <Synopsis>
-                  <div
-                    class="title-info-synopsis"
-                    data-uia="title-info-synopsis"
-                  >
-                    After seizing control of its town, gun-running motorcycle
-                    club the Sons of Anarchy soon butts heads with rival bikers,
-                    racist groups and the law.
-                  </div>
-                  <Creators>
-                    <div>
-                      <span style={{ marginRight: "5px", fontWeight: "bold" }}>
-                        Starring:
-                      </span>
-                      <span>Charlie Hunnam, Katey Sagal, Ron Perlman</span>
+                  <Synopsis>
+                    <div
+                      class="title-info-synopsis"
+                      data-uia="title-info-synopsis"
+                    >
+                      {movie.synopsis}
                     </div>
-                    <div>
-                      <span style={{ marginRight: "5px", fontWeight: "bold" }}>
-                        Creators:
-                      </span>
-                      <span>Kurt Sutter</span>
-                    </div>
-                  </Creators>
-                </Synopsis>
+                    <Creators>
+                      <div>
+                        <span
+                          style={{ marginRight: "5px", fontWeight: "bold" }}
+                        >
+                          Director
+                        </span>
+                        <span>{movie.director}</span>
+                      </div>
+                      <div>
+                        <span
+                          style={{ marginRight: "5px", fontWeight: "bold" }}
+                        >
+                          Producer:
+                        </span>
+                        <span>{movie.producer}</span>
+                      </div>
+                    </Creators>
+                  </Synopsis>
+                </div>
               </div>
-            </div>
-            <div className="home-banner right fullscreen">
-              <div className="d-flex align-items-center">
-                <Card
-                  style={{
-                    padding: "15px 15px",
-                    backgroundColor: "white",
-                    boxShadow: "0 1px 3px rgba(34, 25, 25, 0.4)",
-                  }}
-                >
-                  <img className="img-fluid" src={movieImage} alt="" />
-                </Card>
+              <div className="home-banner right fullscreen">
+                <div className="d-flex align-items-center">
+                  <Card
+                    style={{
+                      padding: "15px 15px",
+                      backgroundColor: "white",
+                      boxShadow: "0 1px 3px rgba(34, 25, 25, 0.4)",
+                    }}
+                  >
+                    <img
+                      className="img-fluid"
+                      src={`data:image/jpeg;base64,${movie.image}`}
+                      alt=""
+                    />
+                  </Card>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : (
+        <Spinner />
+      )}
     </React.Fragment>
   );
 };

@@ -9,16 +9,21 @@ import {
   CardLink,
 } from "reactstrap";
 import { Link } from "react-router-dom";
-export default function ImageCard() {
+export default function ImageCard(props) {
+  console.log(props);
   return (
     <div>
-      <Link to="/title/123">
+      <Link to={`/title/${props.movie.id}`}>
         <Card>
-          <img width="100%" src={movieImage} alt="Card image cap" />
+          <img
+            width="100%"
+            src={`data:image/jpeg;base64,${props.movie.image}`}
+            alt="Card image cap"
+          />
           {/* <CardBody>
           <CardText>Sons of Anarchy</CardText>
         </CardBody> */}
-          <CardTitle className="text-center">Special Title Treatment</CardTitle>
+          <CardTitle className="text-center">{props.movie.title}</CardTitle>
         </Card>
       </Link>
     </div>

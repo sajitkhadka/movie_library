@@ -1,4 +1,4 @@
-package com.sajit.clientrestservice.resources;
+package com.sajit.movielibrarysoapwebapp.resources;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
