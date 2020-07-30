@@ -70,6 +70,7 @@
 <xs:element name="producer" type="xs:string" minOccurs="0"/>
 <xs:element name="thumbnail" type="xs:base64Binary" nillable="true" minOccurs="0"/>
 <xs:element name="synopsys" type="xs:string" minOccurs="0"/>
+<xs:element name="releasedDate" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 

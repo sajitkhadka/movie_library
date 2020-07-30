@@ -66,11 +66,11 @@ export default function Browse() {
       <Container className="themed-container">
         <Row className="pr-4 pl-4">
           <div>
-            <h1>TV Shows</h1>
+            <h1>Movies</h1>
             <p>
-              These days, the small screen has some very big things to offer.
-              From sitcoms to dramas to travel and talk shows, these are all the
-              best programs on TV.
+              Movies move us like nothing else can, whether they’re scary,
+              funny, dramatic, romantic or anywhere in-between. So many titles,
+              so much to experience.
             </p>
           </div>
         </Row>

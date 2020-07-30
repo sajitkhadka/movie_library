@@ -25,34 +25,12 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ShowsServlet", urlPatterns = {"/shows"})
 public class ShowsServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            List<Genre> genres = new ArrayList<>();
-        Genre genre1 = new Genre();
-        genre1.setId(BigDecimal.valueOf(1));
-        genre1.setGenre("Action");
-        genres.add(genre1);
-        Genre genre = new Genre();
-        genre.setId(BigDecimal.valueOf(2));
-        genre.setGenre("Adventure");
-        genres.add(genre);
-        request.setAttribute("genres", genres);
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("./shows.jsp");
         dispatcher.forward(request, response);
-        
-        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

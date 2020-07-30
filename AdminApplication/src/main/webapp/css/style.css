@@ -1,5 +1,5 @@
 body {
-    font: 20px Montserrat, sans-serif;
+    font: 15px Montserrat, sans-serif;
     line-height: 1.8;
     height: 100vh;
     background-color: #f8f8f8; /* Green */
@@ -46,4 +46,10 @@ body {
   padding: 20px 15px 15px 15px;
   border-radius: 10px;
   min-width: 600px;
+  }
+  
+  .my-button{
+      border: none;
+      cursor: pointer;
+      background-color: transparent;
   }

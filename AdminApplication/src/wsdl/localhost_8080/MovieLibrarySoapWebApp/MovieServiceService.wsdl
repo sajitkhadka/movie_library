@@ -7,6 +7,12 @@
 <xsd:import namespace="http://services.movielibrarysoapwebapp.sajit.com/" schemaLocation="http://localhost:8080/MovieLibrarySoapWebApp/MovieServiceService?xsd=1"/>
 </xsd:schema>
 </types>
+<message name="deleteMovieById">
+<part name="parameters" element="tns:deleteMovieById"/>
+</message>
+<message name="deleteMovieByIdResponse">
+<part name="parameters" element="tns:deleteMovieByIdResponse"/>
+</message>
 <message name="CreateMovie">
 <part name="parameters" element="tns:CreateMovie"/>
 </message>
@@ -22,7 +28,23 @@
 <message name="getMoviesResponse">
 <part name="parameters" element="tns:getMoviesResponse"/>
 </message>
+<message name="getMovieById">
+<part name="parameters" element="tns:getMovieById"/>
+</message>
+<message name="getMovieByIdResponse">
+<part name="parameters" element="tns:getMovieByIdResponse"/>
+</message>
+<message name="editMovie">
+<part name="parameters" element="tns:editMovie"/>
+</message>
+<message name="editMovieResponse">
+<part name="parameters" element="tns:editMovieResponse"/>
+</message>
 <portType name="MovieService">
+<operation name="deleteMovieById">
+<input wsam:Action="http://services.movielibrarysoapwebapp.sajit.com/MovieService/deleteMovieByIdRequest" message="tns:deleteMovieById"/>
+<output wsam:Action="http://services.movielibrarysoapwebapp.sajit.com/MovieService/deleteMovieByIdResponse" message="tns:deleteMovieByIdResponse"/>
+</operation>
 <operation name="CreateMovie">
 <input wsam:Action="http://services.movielibrarysoapwebapp.sajit.com/MovieService/CreateMovieRequest" message="tns:CreateMovie"/>
 <output wsam:Action="http://services.movielibrarysoapwebapp.sajit.com/MovieService/CreateMovieResponse" message="tns:CreateMovieResponse"/>
@@ -32,10 +54,28 @@
 <input wsam:Action="http://services.movielibrarysoapwebapp.sajit.com/MovieService/getMoviesRequest" message="tns:getMovies"/>
 <output wsam:Action="http://services.movielibrarysoapwebapp.sajit.com/MovieService/getMoviesResponse" message="tns:getMoviesResponse"/>
 </operation>
+<operation name="getMovieById">
+<input wsam:Action="http://services.movielibrarysoapwebapp.sajit.com/MovieService/getMovieByIdRequest" message="tns:getMovieById"/>
+<output wsam:Action="http://services.movielibrarysoapwebapp.sajit.com/MovieService/getMovieByIdResponse" message="tns:getMovieByIdResponse"/>
+</operation>
+<operation name="editMovie">
+<input wsam:Action="http://services.movielibrarysoapwebapp.sajit.com/MovieService/editMovieRequest" message="tns:editMovie"/>
+<output wsam:Action="http://services.movielibrarysoapwebapp.sajit.com/MovieService/editMovieResponse" message="tns:editMovieResponse"/>
+<fault message="tns:Exception" name="Exception" wsam:Action="http://services.movielibrarysoapwebapp.sajit.com/MovieService/editMovie/Fault/Exception"/>
+</operation>
 </portType>
 <binding name="MovieServicePortBinding" type="tns:MovieService">
 <wsp:PolicyReference URI="#MovieServicePortBinding_MTOM_Policy-MovieServicePortBinding_MTOM_Policy"/>
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<operation name="deleteMovieById">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="CreateMovie">
 <soap:operation soapAction=""/>
 <input>
@@ -56,6 +96,27 @@
 <output>
 <soap:body use="literal"/>
 </output>
+</operation>
+<operation name="getMovieById">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="editMovie">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="Exception">
+<soap:fault name="Exception" use="literal"/>
+</fault>
 </operation>
 </binding>
 <service name="MovieServiceService">

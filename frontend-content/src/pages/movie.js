@@ -54,17 +54,17 @@ const HomePage = function (props) {
                   <Title>{movie.title}</Title>
                   <Metadata>
                     <MetadataItem>
-                      {movie.released ? movie.released.getFullYear() : "2000"}
+                      {movie.released ? movie.released.year : ""}
                     </MetadataItem>
                     <MetadataItem>
                       <span class="maturity-rating">
                         <span
                           style={{
                             border: "1px solid #a1a1a1",
-                            padding: "0 5px",
+                            padding: "2px 5px",
                           }}
                         >
-                          PG
+                          {movie.genre.genre}
                         </span>
                       </span>
                     </MetadataItem>
@@ -73,7 +73,7 @@ const HomePage = function (props) {
                         <span class="test_dur_str">{movie.length} min</span>
                       </span>
                     </MetadataItem>
-                    <MetadataItem>{movie.genre.genre}</MetadataItem>
+                    {/* <MetadataItem>{movie.genre.genre}</MetadataItem> */}
                   </Metadata>
 
                   <Synopsis>

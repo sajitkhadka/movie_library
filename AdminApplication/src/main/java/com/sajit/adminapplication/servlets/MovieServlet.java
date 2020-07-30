@@ -5,90 +5,139 @@
  */
 package com.sajit.adminapplication.servlets;
 
-import com.sajit.adminapplication.models.Genre;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.io.InputStream;
+import java.util.Base64;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import webservices.Exception_Exception;
+import webservices.GenreService;
+import webservices.GenreServiceService;
+import webservices.MovieService;
+import webservices.MovieServiceService;
+import webservices.Movies;
 
 /**
  *
  * @author Sajit
  */
 @WebServlet(name = "MovieServlet", urlPatterns = {"/movies"})
+@MultipartConfig 
 public class MovieServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                
-        List<Genre> genres = new ArrayList<>();
-        Genre genre1 = new Genre();
-        genre1.setId(BigDecimal.valueOf(1));
-        genre1.setGenre("Action");
-        genres.add(genre1);
-        Genre genre = new Genre();
-        genre.setId(BigDecimal.valueOf(2));
-        genre.setGenre("Adventure");
-        genres.add(genre);
-        request.setAttribute("genres", genres);
+      
+        
+        MovieServiceService service = new MovieServiceService();
+        MovieService port = service.getMovieServicePort();
+        
+        List<Movies> movies = port.getMovies();
+        request.setAttribute("shows", movies);
+        
+        request.setAttribute("page", "movies");
         RequestDispatcher dispatcher = request.getRequestDispatcher("./movies.jsp");
         dispatcher.forward(request, response);
         
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        if(request.getParameter("edit")!= null){
+            GenreServiceService service = new GenreServiceService();
+            GenreService port = service.getGenreServicePort();
+            List<webservices.Genre> list = port.getGenre();
+           request.setAttribute("genres", list);
+            request.setAttribute("edit", true);
+            MovieServiceService movieservice = new MovieServiceService();
+            MovieService port2 = movieservice.getMovieServicePort();
+            int id = Integer.parseInt(request.getParameter("id"));
+            Movies movie = port2.getMovieById(id);
+            request.setAttribute("movie", movie);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("./newMovie.jsp");
+            dispatcher.forward(request, response);
+        }else if(request.getParameter("delete")!=null){
+             MovieServiceService service = new MovieServiceService();
+            MovieService port = service.getMovieServicePort();
+            try{
+            int id = Integer.parseInt(request.getParameter("id"));
+            port.deleteMovieById(id);
+            request.setAttribute("success", "Successfully deleted.");
+            }catch(Exception ex){
+             request.setAttribute("error", "Error deleting record.");
+            }
+            processRequest(request, response);
+        }else if(request.getParameter("update")!=null){
+             String title = request.getParameter("title"); 
+             int id = Integer.parseInt(request.getParameter("id"));
+             if(title.equals("") || request.getParameter("length").equals("") || request.getParameter("genre").equals("")){
+                  request.setAttribute("error", "Please fill title, duration and genre.");
+                  
+                RequestDispatcher dispatcher = request.getRequestDispatcher("./newMovie.jsp");
+                dispatcher.forward(request, response);
+             }
+            String released = request.getParameter("released");
+            
+            
+            int length = Integer.parseInt(request.getParameter("length"));
+            int genreId = Integer.parseInt(request.getParameter("genre"));
+            
+           
+            
+            Part filePart = request.getPart("thumbnail"); // Retrieves <input type="file" name="file">
+            //String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+            InputStream fileContent = filePart.getInputStream();
+            
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            byte[] buffer = new byte[(int)filePart.getSize()];
+            filePart.getInputStream().read(buffer,0,buffer.length);
+            bytes.write(buffer);
+            
+            byte[] encoded = Base64.getEncoder().encode(buffer);
+            String producer = request.getParameter("producer");  
+            String director = request.getParameter("director");
+            String synopsis = request.getParameter("synopsis");
+                 
+              MovieServiceService service = new MovieServiceService();
+              MovieService port = service.getMovieServicePort();
+              
+              System.out.println("id"+id+", length"+length);
+            try {
+
+                if(port.editMovie(id,title,length, genreId, director, producer, encoded, synopsis, released)){
+                    request.setAttribute("success", "Successfully updated the movie.");
+                    processRequest(request, response);
+                }
+            } catch (Exception_Exception ex) {
+                Logger.getLogger(AddMovieServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         processRequest(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }
