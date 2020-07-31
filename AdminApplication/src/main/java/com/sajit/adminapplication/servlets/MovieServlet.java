@@ -90,8 +90,8 @@ public class MovieServlet extends HttpServlet {
         }else if(request.getParameter("update")!=null){
              String title = request.getParameter("title"); 
              int id = Integer.parseInt(request.getParameter("id"));
-             if(title.equals("") || request.getParameter("length").equals("") || request.getParameter("genre").equals("")){
-                  request.setAttribute("error", "Please fill title, duration and genre.");
+             if(title.equals("") || request.getParameter("length").equals("")){
+                  request.setAttribute("error", "Please fill title, duration.");
                   
                 RequestDispatcher dispatcher = request.getRequestDispatcher("./newMovie.jsp");
                 dispatcher.forward(request, response);

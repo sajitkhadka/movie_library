@@ -39,7 +39,7 @@
                     <div class="form-group row">
                       <label for="released" class="col-sm-4 col-form-label">First Episode Released: </label>
                       <div class="col-sm-8">
-                        <input type="date" name="released" class="form-control" id="released"  val="<c:out value="${show.releasedOn}" ></c:out>">
+                        <input type="date" name="released" required class="form-control" id="released"  val="<c:out value="${show.releasedOn}" ></c:out>">
                       </div>
                     </div>
                      <div class="form-group row">

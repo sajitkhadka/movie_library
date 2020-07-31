@@ -63,14 +63,19 @@ public class AddShowServlet extends HttpServlet {
             throws ServletException, IOException {
              String title = request.getParameter("title");   
         
-              if(title.equals("") || request.getParameter("noSeasons").equals("") || request.getParameter("genre").equals("")){
-                  request.setAttribute("error", "Please fill title, duration and genre.");
+              if(title.equals("")){
+                  request.setAttribute("error", "Please fill title.");
                 processRequest(request, response);
              }
             String released = request.getParameter("released");
             
             
             int noSeasons = Integer.parseInt(request.getParameter("noSeasons"));
+             if(request.getParameter("genre")== null){
+              request.setAttribute("error", "Please choose a genre");
+                processRequest(request, response);
+             }
+             
             int genreId = Integer.parseInt(request.getParameter("genre"));
             
             //custom created utility class to convert image path to byte
@@ -83,6 +88,7 @@ public class AddShowServlet extends HttpServlet {
                 request.setAttribute("error", "No of seasons cannot be 0 or less.");
                 processRequest(request, response);
            }
+            
                  
               ShowServiceService service = new ShowServiceService();
               ShowService port = service.getShowServicePort();

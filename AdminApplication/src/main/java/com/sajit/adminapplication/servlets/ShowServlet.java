@@ -92,8 +92,8 @@ public class ShowServlet extends HttpServlet {
         }else if(request.getParameter("update")!=null){
              String title = request.getParameter("title"); 
              int id = Integer.parseInt(request.getParameter("id"));
-             if(title.equals("") || request.getParameter("noSeasons").equals("") || request.getParameter("genre").equals("")){
-                  request.setAttribute("error", "Please fill title, duration and genre.");
+             if(title.equals("") || request.getParameter("noSeasons").equals("")){
+                  request.setAttribute("error", "Please fill title, duration.");
                   
                 RequestDispatcher dispatcher = request.getRequestDispatcher("./newShow.jsp");
                 dispatcher.forward(request, response);
