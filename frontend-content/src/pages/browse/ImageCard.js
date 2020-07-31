@@ -1,29 +1,32 @@
 import React from "react";
-import movieImage from "../../img/movie.jpg";
-import {
-  Card,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  CardText,
-  CardLink,
-} from "reactstrap";
+import { Card, CardTitle } from "reactstrap";
 import { Link } from "react-router-dom";
+import defaultImage from "../../img/default.jpg";
 export default function ImageCard(props) {
-  console.log(props);
+  const value = props.movie || props.show;
   return (
     <div>
-      <Link to={`/title/${props.movie.id}`}>
-        <Card>
+      <Link
+        to={`/${props.movie ? "movie" : props.show ? "show" : "error"}/${
+          value.id
+        }`}
+      >
+        <Card style={{ border: "none" }}>
           <img
             width="100%"
-            src={`data:image/jpeg;base64,${props.movie.image}`}
+            height="150px"
+            style={{ objectFit: "cover", borderRadius: "5px" }}
+            src={
+              value.image
+                ? `data:image/jpeg;base64,${value.image}`
+                : defaultImage
+            }
             alt="Card image cap"
           />
           {/* <CardBody>
           <CardText>Sons of Anarchy</CardText>
         </CardBody> */}
-          <CardTitle className="text-center">{props.movie.title}</CardTitle>
+          <CardTitle className="text-center">{value.title}</CardTitle>
         </Card>
       </Link>
     </div>

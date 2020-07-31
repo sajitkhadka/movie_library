@@ -6,7 +6,9 @@
 package com.sajit.restserviceclient.tools;
 
 import com.sajit.restserviceclient.services.models.Movie;
-import webservice.Movies;
+import com.sajit.restserviceclient.services.models.Show;
+import moviewebservice.Movies;
+import showwebservice.Shows;
 
 /**
  *
@@ -27,5 +29,19 @@ public class ClassConversion {
              m.setId(movie.getMoviesId());
             m.setSynonsis(movie.getSynopsys());
             return m;
+    }
+    
+    public static Show ShowConvert(Shows show){
+            Show s = new Show();
+            s.setTitle(show.getTitle());
+            s.setGenre(show.getGenreId());
+            s.setNoSeasons(show.getNoSeasons());
+            s.setDirector(show.getDirector());
+            s.setImage(new String(show.getThumbnail()));
+            s.setProducer(show.getProducer());
+            s.setReleased(show.getReleasedOn());
+            s.setId(show.getShowsId());
+            s.setSynonsis(show.getSynopsys());
+            return s;
     }
 }

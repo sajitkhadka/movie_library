@@ -22,33 +22,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import moviewebservices.Exception_Exception;
+import tvwebservices.Exception_Exception;
 import genrewebservices.GenreService;
 import genrewebservices.GenreServiceService;
-import moviewebservices.MovieService;
-import moviewebservices.MovieServiceService;
-import moviewebservices.Movies;
+import tvwebservices.ShowService;
+import tvwebservices.ShowServiceService;
+import tvwebservices.Shows;
 
 /**
  *
  * @author Sajit
  */
-@WebServlet(name = "MovieServlet", urlPatterns = {"/movies"})
+@WebServlet(name = "ShowServlet", urlPatterns = {"/shows"})
 @MultipartConfig 
-public class MovieServlet extends HttpServlet {
+public class ShowServlet extends HttpServlet {
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
       
         
-        MovieServiceService service = new MovieServiceService();
-        MovieService port = service.getMovieServicePort();
+        ShowServiceService service = new ShowServiceService();
+        ShowService port = service.getShowServicePort();
         
-        List<Movies> movies = port.getMovies();
-        request.setAttribute("shows", movies);
+        List<Shows> shows = port.getShows();
+        request.setAttribute("shows", shows);
         
-        RequestDispatcher dispatcher = request.getRequestDispatcher("./movies.jsp");
+        request.setAttribute("page", "shows");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("./shows.jsp");
         dispatcher.forward(request, response);
         
     }
@@ -69,19 +70,21 @@ public class MovieServlet extends HttpServlet {
             List<Genre> list = port.getGenre();
            request.setAttribute("genres", list);
             request.setAttribute("edit", true);
-            MovieServiceService movieservice = new MovieServiceService();
-            MovieService port2 = movieservice.getMovieServicePort();
+            ShowServiceService showservice = new ShowServiceService();
+            ShowService port2 = showservice.getShowServicePort();
             int id = Integer.parseInt(request.getParameter("id"));
-            Movies movie = port2.getMovieById(id);
-            request.setAttribute("movie", movie);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("./newMovie.jsp");
+            //change
+            //Shows show = port2.getShowById(id);
+            Shows show = port2.getMovieById(id);
+            request.setAttribute("show", show);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("./newShow.jsp");
             dispatcher.forward(request, response);
         }else if(request.getParameter("delete")!=null){
-             MovieServiceService service = new MovieServiceService();
-            MovieService port = service.getMovieServicePort();
+             ShowServiceService service = new ShowServiceService();
+            ShowService port = service.getShowServicePort();
             try{
             int id = Integer.parseInt(request.getParameter("id"));
-            port.deleteMovieById(id);
+            port.deleteShowById(id);
             request.setAttribute("success", "Successfully deleted.");
             }catch(Exception ex){
              request.setAttribute("error", "Error deleting record.");
@@ -90,47 +93,43 @@ public class MovieServlet extends HttpServlet {
         }else if(request.getParameter("update")!=null){
              String title = request.getParameter("title"); 
              int id = Integer.parseInt(request.getParameter("id"));
-             if(title.equals("") || request.getParameter("length").equals("") || request.getParameter("genre").equals("")){
+             if(title.equals("") || request.getParameter("noSeasons").equals("") || request.getParameter("genre").equals("")){
                   request.setAttribute("error", "Please fill title, duration and genre.");
                   
-                RequestDispatcher dispatcher = request.getRequestDispatcher("./newMovie.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("./newShow.jsp");
                 dispatcher.forward(request, response);
              }
             String released = request.getParameter("released");
             
             
-            int length = Integer.parseInt(request.getParameter("length"));
+            int noSeasons = Integer.parseInt(request.getParameter("noSeasons"));
             int genreId = Integer.parseInt(request.getParameter("genre"));
             
-            byte[] image = ImageUtility.ImagePartToByte64(request.getPart("thumbnail"));
+            //String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
             
-//            Part filePart = request.getPart("thumbnail"); // Retrieves <input type="file" name="file">
-            //String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-//            InputStream fileContent = filePart.getInputStream();
-//            
-//            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-//            byte[] buffer = new byte[(int)filePart.getSize()];
-//            filePart.getInputStream().read(buffer,0,buffer.length);
-//            bytes.write(buffer);
-//            
-//            byte[] encoded = Base64.getEncoder().encode(buffer);
+            byte[] image = ImageUtility.ImagePartToByte64(request.getPart("thumbnail"));
             String producer = request.getParameter("producer");  
             String director = request.getParameter("director");
             String synopsis = request.getParameter("synopsis");
                  
-              MovieServiceService service = new MovieServiceService();
-              MovieService port = service.getMovieServicePort();
+              ShowServiceService service = new ShowServiceService();
+              ShowService port = service.getShowServicePort();
             try {
-
-                if(port.editMovie(id,title,length, genreId, director, producer, image, synopsis, released)){
-                    request.setAttribute("success", "Successfully updated the movie.");
+                if(port.editShows(id,title,noSeasons, genreId, director, producer, image, synopsis, released)){
+                    request.setAttribute("success", "Successfully updated the show.");
                     processRequest(request, response);
+                }else{
+                     request.setAttribute("error", "Couldn't updade the show.");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("./newShow.jsp");
+                dispatcher.forward(request, response);
                 }
             } catch (Exception_Exception ex) {
-                Logger.getLogger(AddMovieServlet.class.getName()).log(Level.SEVERE, null, ex);
+                request.setAttribute("error", "Couldn't updade the show.");
+                    processRequest(request, response);
+                Logger.getLogger(AddShowServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        processRequest(request, response);
+         processRequest(request, response);
     }
 
 
@@ -140,3 +139,4 @@ public class MovieServlet extends HttpServlet {
     }
 
 }
+

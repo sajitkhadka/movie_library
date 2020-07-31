@@ -21,9 +21,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import moviewebservices.MovieServiceService;
-import moviewebservices.MovieService;
-import moviewebservices.Exception_Exception;
+import tvwebservices.ShowServiceService;
+import tvwebservices.ShowService;
+import tvwebservices.Exception_Exception;
 import genrewebservices.GenreServiceService;
 import genrewebservices.GenreService;
 import genrewebservices.Genre;
@@ -32,9 +32,9 @@ import genrewebservices.Genre;
  *
  * @author Sajit
  */
-@WebServlet(name = "AddMovieServlet", urlPatterns = {"/add-movies"})
+@WebServlet(name = "AddShowServlet", urlPatterns = {"/add-shows"})
 @MultipartConfig 
-public class AddMovieServlet extends HttpServlet {
+public class AddShowServlet extends HttpServlet {
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -45,7 +45,7 @@ public class AddMovieServlet extends HttpServlet {
          List<Genre> list = port.getGenre();
              
         request.setAttribute("genres", list);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("./newMovie.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("./newShow.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -63,38 +63,35 @@ public class AddMovieServlet extends HttpServlet {
             throws ServletException, IOException {
              String title = request.getParameter("title");   
         
-              if(title.equals("") || request.getParameter("length").equals("") || request.getParameter("genre").equals("")){
+              if(title.equals("") || request.getParameter("noSeasons").equals("") || request.getParameter("genre").equals("")){
                   request.setAttribute("error", "Please fill title, duration and genre.");
                 processRequest(request, response);
              }
             String released = request.getParameter("released");
             
             
-            int length = Integer.parseInt(request.getParameter("length"));
+            int noSeasons = Integer.parseInt(request.getParameter("noSeasons"));
             int genreId = Integer.parseInt(request.getParameter("genre"));
             
-           
             byte[] image = ImageUtility.ImagePartToByte64(request.getPart("thumbnail"));
             String producer = request.getParameter("producer");  
             String director = request.getParameter("director");
             String synopsis = request.getParameter("synopsis");
                  
-              MovieServiceService service = new MovieServiceService();
-              MovieService port = service.getMovieServicePort();
+              ShowServiceService service = new ShowServiceService();
+              ShowService port = service.getShowServicePort();
         try {
-            
-            if(port.createMovie(title,length, genreId, director, producer, image, synopsis, released)){
-                 //RequestDispatcher dispatcher = request.getRequestDispatcher("./newMovie.jsp");
-                 
-                request.setAttribute("success", "Successfully added a movie.");
+            if(port.createShows(title,noSeasons, genreId, director, producer, image, synopsis, released)){
+ 
+                request.setAttribute("success", "Successfully added a show.");
                 processRequest(request, response);
             }
         } catch (Exception_Exception ex) {
               
-                request.setAttribute("error", "Error adding the movie. Please try again.");
+                request.setAttribute("error", "Error adding the show. Please try again.");
                 processRequest(request, response);
                 
-            Logger.getLogger(AddMovieServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddShowServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
                     
     }

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import mainImage from "../img/landing-page/netflix.svg";
 import Navbar from "../layout/navbar";
 import styled from "styled-components";
 import { Card } from "reactstrap";
@@ -16,25 +15,26 @@ import {
   Creators,
 } from "./styled-components/components";
 const HomePage = function (props) {
-  const [movie, setMovie] = useState(null);
+  const [show, setShow] = useState(null);
 
   const [error, setError] = useState("");
 
-  //`http://localhost:8080/RestServiceClient/api/movie/id/${props.history.match.params.title}
+  //`http://localhost:8080/RestServiceClient/api/show/id/${props.history.match.params.title}
   useEffect(() => {
     axios
       .get(
-        `http://localhost:8888/RestServiceClient/api/movie/id/${props.match.params.id}`
+        `http://localhost:8888/RestServiceClient/api/show/id/${props.match.params.id}`
       )
       .then((response) => {
-        setMovie(response.data);
-        // setLoading(false);
+        setShow(response.data);
       })
       .catch((err) => {
         console.log(err);
-        setError("Error getting");
+        setError("Couldn't load the data.");
       });
   }, []);
+
+  console.log(show);
 
   return (
     <React.Fragment>
@@ -46,16 +46,16 @@ const HomePage = function (props) {
       ) : (
         ""
       )}
-      {movie ? (
+      {show ? (
         <section className="home-banner-area" id="home">
           <div className="container">
             <div className="row  text-md-left fullscreen">
               <div className="home-banner left col align-items-center">
                 <div>
-                  <Title>{movie.title}</Title>
+                  <Title>{show.title}</Title>
                   <Metadata>
                     <MetadataItem>
-                      {movie.released ? movie.released.year : ""}
+                      {show.released ? show.released.year : ""}
                     </MetadataItem>
                     <MetadataItem>
                       <span class="maturity-rating">
@@ -65,16 +65,18 @@ const HomePage = function (props) {
                             padding: "2px 5px",
                           }}
                         >
-                          {movie.genre.genre}
+                          {show.genre.genre}
                         </span>
                       </span>
                     </MetadataItem>
                     <MetadataItem>
                       <span class="duration">
-                        <span class="test_dur_str">{movie.length} min</span>
+                        <span class="test_dur_str">
+                          {show.noSeasons} seasons
+                        </span>
                       </span>
                     </MetadataItem>
-                    {/* <MetadataItem>{movie.genre.genre}</MetadataItem> */}
+                    {/* <MetadataItem>{show.genre.genre}</MetadataItem> */}
                   </Metadata>
 
                   <Synopsis>
@@ -82,7 +84,7 @@ const HomePage = function (props) {
                       class="title-info-synopsis"
                       data-uia="title-info-synopsis"
                     >
-                      {movie.synopsis}
+                      {show.synopsis}
                     </div>
                     <Creators>
                       <div>
@@ -91,7 +93,7 @@ const HomePage = function (props) {
                         >
                           Director
                         </span>
-                        <span>{movie.director}</span>
+                        <span>{show.director}</span>
                       </div>
                       <div>
                         <span
@@ -99,7 +101,7 @@ const HomePage = function (props) {
                         >
                           Producer:
                         </span>
-                        <span>{movie.producer}</span>
+                        <span>{show.producer}</span>
                       </div>
                     </Creators>
                   </Synopsis>
@@ -117,8 +119,8 @@ const HomePage = function (props) {
                     <img
                       className="img-fluid"
                       src={
-                        movie.image
-                          ? `data:image/jpeg;base64,${movie.image}`
+                        show.image
+                          ? `data:image/jpeg;base64,${show.image}`
                           : defaultImage
                       }
                       alt=""

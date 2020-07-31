@@ -101,16 +101,16 @@
                         </goals>
                         <configuration>
                             <wsdlFiles>
-                                <wsdlFile>localhost_8080/MovieLibrarySoapWebApp/GenreServiceService.wsdl</wsdlFile>
+                                <wsdlFile>movie-library-soap-webserver.herokuapp.com/MovieService.wsdl</wsdlFile>
                             </wsdlFiles>
-                            <packageName>webservices</packageName>
+                            <packageName>moviewebservices</packageName>
                             <vmArgs>
                                 <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
                             </vmArgs>
-                            <wsdlLocation>http://localhost:8080/MovieLibrarySoapWebApp/GenreServiceService?WSDL</wsdlLocation>
-                            <staleFile>${project.build.directory}/jaxws/stale/GenreServiceService.stale</staleFile>
+                            <wsdlLocation>https://movie-library-soap-webserver.herokuapp.com/MovieService?WSDL</wsdlLocation>
+                            <staleFile>${project.build.directory}/jaxws/stale/MovieService.stale</staleFile>
                         </configuration>
-                        <id>wsimport-generate-GenreServiceService</id>
+                        <id>wsimport-generate-MovieService</id>
                         <phase>generate-sources</phase>
                     </execution>
                     <execution>
@@ -119,16 +119,34 @@
                         </goals>
                         <configuration>
                             <wsdlFiles>
-                                <wsdlFile>localhost_8080/MovieLibrarySoapWebApp/MovieServiceService.wsdl</wsdlFile>
+                                <wsdlFile>movie-library-soap-webserver.herokuapp.com/ShowService.wsdl</wsdlFile>
                             </wsdlFiles>
-                            <packageName>webservices</packageName>
+                            <packageName>tvwebservices</packageName>
                             <vmArgs>
                                 <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
                             </vmArgs>
-                            <wsdlLocation>http://localhost:8080/MovieLibrarySoapWebApp/MovieServiceService?WSDL</wsdlLocation>
-                            <staleFile>${project.build.directory}/jaxws/stale/MovieServiceService.stale</staleFile>
+                            <wsdlLocation>http://movie-library-soap-webserver.herokuapp.com/ShowService?WSDL</wsdlLocation>
+                            <staleFile>${project.build.directory}/jaxws/stale/ShowService.stale</staleFile>
                         </configuration>
-                        <id>wsimport-generate-MovieServiceService</id>
+                        <id>wsimport-generate-ShowService</id>
+                        <phase>generate-sources</phase>
+                    </execution>
+                    <execution>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <configuration>
+                            <wsdlFiles>
+                                <wsdlFile>movie-library-soap-webserver.herokuapp.com/GenreService.wsdl</wsdlFile>
+                            </wsdlFiles>
+                            <packageName>genrewebservices</packageName>
+                            <vmArgs>
+                                <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
+                            </vmArgs>
+                            <wsdlLocation>http://movie-library-soap-webserver.herokuapp.com/GenreService?WSDL</wsdlLocation>
+                            <staleFile>${project.build.directory}/jaxws/stale/GenreService.stale</staleFile>
+                        </configuration>
+                        <id>wsimport-generate-GenreService</id>
                         <phase>generate-sources</phase>
                     </execution>
                 </executions>

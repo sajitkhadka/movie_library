@@ -44,22 +44,24 @@ import Spinner from "../components/spinner-component";
 //   },
 // ];
 export default function Browse() {
-  const [movies, setMovies] = useState([]);
+  const [show, setShows] = useState([]);
 
-  const [loading, setLoading] = useState(true);
-
+  const [error, setError] = useState("");
   useEffect(() => {
     axios
-      .get("http://localhost:8080/RestServiceClient/api/movie")
+      .get("http://localhost:8888/RestServiceClient/api/show")
       .then((response) => {
-        setMovies(response.data);
-        setLoading(false);
-        //console.log(response.data);
+        setShows(response.data);
+        if (response.data.length <= 0) {
+          setError("No data found..");
+        }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setError("Error getting data");
+        console.log(err);
+      });
   }, []);
 
-  console.log(movies);
   return (
     <div>
       <Navbar />
@@ -75,9 +77,13 @@ export default function Browse() {
           </div>
         </Row>
 
-        {loading ? <Spinner /> : <ImageRow movies={movies} />}
-        {/* <ImageRow />
-        <ImageRow /> */}
+        {show.length > 0 ? (
+          <ImageRow shows={show} />
+        ) : error ? (
+          error
+        ) : (
+          <Spinner />
+        )}
       </Container>
     </div>
   );

@@ -16,7 +16,7 @@ package com.sajit.restserviceclient.services;
  */
 
 import com.google.gson.Gson;
-import com.sajit.restserviceclient.services.models.Movie;
+import com.sajit.restserviceclient.services.models.Show;
 import com.sajit.restserviceclient.tools.ClassConversion;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,39 +26,39 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import moviewebservice.MovieService;
-import moviewebservice.MovieServiceService;
-import moviewebservice.Movies;
+import showwebservice.ShowService;
+import showwebservice.ShowServiceService;
+import showwebservice.Shows;
 
 /**
  *
  * @author Sajit
  */
-@Path("movie")
-public class ClientMovieService {
+@Path("show")
+public class ClientShowService {
     
     @GET
     @Produces("application/json")
-    public Response allmovies(){
-         MovieServiceService service = new MovieServiceService();
-        MovieService port = service.getMovieServicePort();
-         List<Movies> movies = port.getMovies();
+    public Response allshows(){
+         ShowServiceService service = new ShowServiceService();
+        ShowService port = service.getShowServicePort();
+         List<Shows> shows = port.getShows();
         //Instead of directly converting passing the movie data that comes from webservice to json data 
         // I have converted it to another movie class. the reason is the original movie data has image as byte.
         //which i have converted to base64 string before serving to api calls.
         
-        List<Movie> modifiedMovieList = new ArrayList();
-        for(Movies movie:movies){
+        List<Show> modifiedShowList = new ArrayList();
+        for(Shows movie:shows){
             //The ClassConversion is a utility class I created to easily convert the incoming class to the data I want.
-            modifiedMovieList.add(ClassConversion.MovieConvert(movie));
+            modifiedShowList.add(ClassConversion.ShowConvert(movie));
         }
-        if(movies!= null){
+        if(shows!= null){
             //String output = response.readEntity(String.class);
             Gson gson = new Gson();
             //Comment [] commentList = gson.fromJson(output, Comment[].class);
            // List <Comment> commentsArray = Arrays.asList(commentList);
             //commentsArray = commentsArray.stream().limit(count).collect(Collectors.toList());
-            return Response.ok(gson.toJson(modifiedMovieList)).build();
+            return Response.ok(gson.toJson(modifiedShowList)).build();
         }else{
             return Response.noContent().build();
         }
@@ -68,10 +68,12 @@ public class ClientMovieService {
     @Produces("application/json")
     @Path("id/{id}")
     public Response movidById(@PathParam("id") int id){
-         MovieServiceService service = new MovieServiceService();
-        MovieService port = service.getMovieServicePort();
+         ShowServiceService service = new ShowServiceService();
+        ShowService port = service.getShowServicePort();
          
-         Movie movie = ClassConversion.MovieConvert(port.getMovieById(id));
+        //Change 
+        // Show movie = ClassConversion.ShowConvert(port.getShowsById(id));
+         Show movie = ClassConversion.ShowConvert(port.getMovieById(id));
         if(movie!= null){
             Gson gson = new Gson();
             return Response.ok(gson.toJson(movie)).build();

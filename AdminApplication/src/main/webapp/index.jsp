@@ -19,7 +19,7 @@
               <h3 class="margin">Movie Library Admin Portal</h3>
               <div class="d-flex justify-content-center">
                   <a href="movies" type="button" class="btn btn-outline-secondary">Browse Movies</a>
-                  <a href="shows" type="button" class="btn btn-outline-secondary ml-2">Browse TV Shows</a>
+                  <a href="shows" type="button" class="btn btn-outline-secondary ml-2">Browse TV Shows</a>                  
               </div>
             </div>            
     </body>

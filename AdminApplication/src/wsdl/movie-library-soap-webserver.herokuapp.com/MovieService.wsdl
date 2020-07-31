@@ -1,0 +1,245 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://services.movielibrarysoapwebapp.sajit.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="MovieServiceService" targetNamespace="http://services.movielibrarysoapwebapp.sajit.com/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://services.movielibrarysoapwebapp.sajit.com/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://services.movielibrarysoapwebapp.sajit.com/">
+  <xs:element name="CreateMovie" type="tns:CreateMovie"/>
+  <xs:element name="CreateMovieResponse" type="tns:CreateMovieResponse"/>
+  <xs:element name="deleteMovieById" type="tns:deleteMovieById"/>
+  <xs:element name="deleteMovieByIdResponse" type="tns:deleteMovieByIdResponse"/>
+  <xs:element name="editMovie" type="tns:editMovie"/>
+  <xs:element name="editMovieResponse" type="tns:editMovieResponse"/>
+  <xs:element name="genre" type="tns:genre"/>
+  <xs:element name="getMovieById" type="tns:getMovieById"/>
+  <xs:element name="getMovieByIdResponse" type="tns:getMovieByIdResponse"/>
+  <xs:element name="getMovies" type="tns:getMovies"/>
+  <xs:element name="getMoviesResponse" type="tns:getMoviesResponse"/>
+  <xs:element name="movies" type="tns:movies"/>
+  <xs:complexType name="deleteMovieById">
+    <xs:sequence>
+      <xs:element name="id" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="deleteMovieByIdResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getMovies">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="getMoviesResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:movies"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="movies">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="director" type="xs:string"/>
+      <xs:element minOccurs="0" name="genreId" type="tns:genre"/>
+      <xs:element minOccurs="0" name="length" type="xs:integer"/>
+      <xs:element minOccurs="0" name="moviesId" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="producer" type="xs:string"/>
+      <xs:element minOccurs="0" name="releasedDate" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="synopsys" type="xs:string"/>
+      <xs:element minOccurs="0" name="thumbnail" type="xs:base64Binary"/>
+      <xs:element minOccurs="0" name="title" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="genre">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="genre" type="xs:string"/>
+      <xs:element minOccurs="0" name="genreId" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CreateMovie">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="title" type="xs:string"/>
+      <xs:element name="duration" type="xs:int"/>
+      <xs:element name="genre" type="xs:int"/>
+      <xs:element minOccurs="0" name="director" type="xs:string"/>
+      <xs:element minOccurs="0" name="producer" type="xs:string"/>
+      <xs:element minOccurs="0" name="thumbnail" type="xs:base64Binary"/>
+      <xs:element minOccurs="0" name="synopsys" type="xs:string"/>
+      <xs:element minOccurs="0" name="releasedDate" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CreateMovieResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getMovieById">
+    <xs:sequence>
+      <xs:element name="id" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getMovieByIdResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:movies"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="editMovie">
+    <xs:sequence>
+      <xs:element name="id" type="xs:int"/>
+      <xs:element minOccurs="0" name="title" type="xs:string"/>
+      <xs:element name="duration" type="xs:int"/>
+      <xs:element name="genre" type="xs:int"/>
+      <xs:element minOccurs="0" name="director" type="xs:string"/>
+      <xs:element minOccurs="0" name="producer" type="xs:string"/>
+      <xs:element minOccurs="0" name="thumbnail" type="xs:base64Binary"/>
+      <xs:element minOccurs="0" name="synopsys" type="xs:string"/>
+      <xs:element minOccurs="0" name="releasedDate" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="editMovieResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Exception" type="tns:Exception"/>
+  <xs:complexType name="Exception">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="deleteMovieById">
+    <wsdl:part element="tns:deleteMovieById" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteMovieByIdResponse">
+    <wsdl:part element="tns:deleteMovieByIdResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getMoviesResponse">
+    <wsdl:part element="tns:getMoviesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getMovies">
+    <wsdl:part element="tns:getMovies" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getMovieById">
+    <wsdl:part element="tns:getMovieById" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="editMovie">
+    <wsdl:part element="tns:editMovie" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="editMovieResponse">
+    <wsdl:part element="tns:editMovieResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part element="tns:Exception" name="Exception">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getMovieByIdResponse">
+    <wsdl:part element="tns:getMovieByIdResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CreateMovie">
+    <wsdl:part element="tns:CreateMovie" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CreateMovieResponse">
+    <wsdl:part element="tns:CreateMovieResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="MovieService">
+    <wsdl:operation name="deleteMovieById">
+      <wsdl:input message="tns:deleteMovieById" name="deleteMovieById">
+    </wsdl:input>
+      <wsdl:output message="tns:deleteMovieByIdResponse" name="deleteMovieByIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getMovies">
+      <wsdl:input message="tns:getMovies" name="getMovies">
+    </wsdl:input>
+      <wsdl:output message="tns:getMoviesResponse" name="getMoviesResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateMovie">
+      <wsdl:input message="tns:CreateMovie" name="CreateMovie">
+    </wsdl:input>
+      <wsdl:output message="tns:CreateMovieResponse" name="CreateMovieResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getMovieById">
+      <wsdl:input message="tns:getMovieById" name="getMovieById">
+    </wsdl:input>
+      <wsdl:output message="tns:getMovieByIdResponse" name="getMovieByIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="editMovie">
+      <wsdl:input message="tns:editMovie" name="editMovie">
+    </wsdl:input>
+      <wsdl:output message="tns:editMovieResponse" name="editMovieResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MovieServiceServiceSoapBinding" type="tns:MovieService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="deleteMovieById">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="deleteMovieById">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deleteMovieByIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getMovies">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getMovies">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getMoviesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateMovie">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="CreateMovie">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="CreateMovieResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getMovieById">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getMovieById">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getMovieByIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="editMovie">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="editMovie">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="editMovieResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MovieServiceService">
+    <wsdl:port binding="tns:MovieServiceServiceSoapBinding" name="MovieServicePort">
+      <soap:address location="http://movie-library-soap-webserver.herokuapp.com/MovieService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

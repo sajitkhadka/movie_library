@@ -8,13 +8,13 @@ package com.sajit.restserviceclient.services.models;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import javax.xml.datatype.XMLGregorianCalendar;
-import moviewebservice.Genre;
+import showwebservice.Genre;
 
 /**
  *
  * @author Sajit
  */
-public class Movie {
+public class Show {
     
 
 /**
@@ -37,8 +37,8 @@ public class Movie {
     private String title;
     private String image;
     private XMLGregorianCalendar released;
-    private String synopsis;
-    private BigInteger length;
+    private String synopsis; 
+    protected BigInteger noSeasons;
     private Genre genre;
     private String director;
     private String producer;
@@ -83,12 +83,12 @@ public class Movie {
         this.synopsis = synonsis;
     }
 
-    public BigInteger getLength() {
-        return length;
+    public BigInteger getNoSeasons() {
+        return noSeasons;
     }
 
-    public void setLength(BigInteger length) {
-        this.length = length;
+    public void setNoSeasons(BigInteger length) {
+        this.noSeasons = length;
     }
 
     public Genre getGenre() {

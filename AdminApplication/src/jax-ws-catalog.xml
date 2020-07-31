@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="http://localhost:8080/MovieLibrarySoapWebApp/GenreServiceService?WSDL" uri="wsdl/localhost_8080/MovieLibrarySoapWebApp/GenreServiceService.wsdl"/>
-    <system systemId="http://localhost:8080/MovieLibrarySoapWebApp/GenreServiceService?xsd=1" uri="wsdl/localhost_8080/MovieLibrarySoapWebApp/GenreServiceService.xsd_1.xsd"/>
-    <system systemId="http://localhost:8080/MovieLibrarySoapWebApp/MovieServiceService?WSDL" uri="wsdl/localhost_8080/MovieLibrarySoapWebApp/MovieServiceService.wsdl"/>
-    <system systemId="http://localhost:8080/MovieLibrarySoapWebApp/MovieServiceService?xsd=1" uri="wsdl/localhost_8080/MovieLibrarySoapWebApp/MovieServiceService.xsd_1.xsd"/>
+    <system systemId="https://movie-library-soap-webserver.herokuapp.com/MovieService?WSDL" uri="wsdl/movie-library-soap-webserver.herokuapp.com/MovieService.wsdl"/>
+    <system systemId="http://movie-library-soap-webserver.herokuapp.com/ShowService?WSDL" uri="wsdl/movie-library-soap-webserver.herokuapp.com/ShowService.wsdl"/>
+    <system systemId="http://movie-library-soap-webserver.herokuapp.com/GenreService?WSDL" uri="wsdl/movie-library-soap-webserver.herokuapp.com/GenreService.wsdl"/>
 </catalog>
