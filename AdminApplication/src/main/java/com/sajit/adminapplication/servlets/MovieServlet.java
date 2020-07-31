@@ -102,7 +102,8 @@ public class MovieServlet extends HttpServlet {
             int length = Integer.parseInt(request.getParameter("length"));
              if(request.getParameter("genre")== null){
               request.setAttribute("error", "Please choose a genre");
-                processRequest(request, response);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("./newMovie.jsp");
+                dispatcher.forward(request, response);
              }
             int genreId = Integer.parseInt(request.getParameter("genre"));
             
@@ -115,7 +116,8 @@ public class MovieServlet extends HttpServlet {
             String synopsis = request.getParameter("synopsis");
             if(length<=0){
                 request.setAttribute("error", "Movie length cannot be 0 or less.");
-                processRequest(request, response);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("./newMovie.jsp");
+                dispatcher.forward(request, response);
            }
                  
               MovieServiceService service = new MovieServiceService();
@@ -127,6 +129,9 @@ public class MovieServlet extends HttpServlet {
                     processRequest(request, response);
                 }
             } catch (Exception_Exception ex) {
+                request.setAttribute("error", "Error adding movie. If you have put disney in any string please try agiain removing disney.");
+                  RequestDispatcher dispatcher = request.getRequestDispatcher("./newMovie.jsp");
+                dispatcher.forward(request, response);
                 Logger.getLogger(AddMovieServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
