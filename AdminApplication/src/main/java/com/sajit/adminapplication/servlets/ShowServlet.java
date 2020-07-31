@@ -102,6 +102,10 @@ public class ShowServlet extends HttpServlet {
             
             
             int noSeasons = Integer.parseInt(request.getParameter("noSeasons"));
+             if(request.getParameter("genre")== null){
+              request.setAttribute("error", "Please choose a genre");
+                processRequest(request, response);
+             }
             int genreId = Integer.parseInt(request.getParameter("genre"));
             
             //custom created utility class to convert image path to byte

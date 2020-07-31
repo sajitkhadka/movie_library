@@ -22,7 +22,9 @@ public class ClassConversion {
             m.setGenre(movie.getGenreId());
             m.setLength(movie.getLength());
             m.setDirector(movie.getDirector());
-            m.setImage(new String(movie.getThumbnail()));
+            if(movie.getThumbnail()!=null){
+                 m.setImage(new String(movie.getThumbnail()));
+            }
             m.setProducer(movie.getProducer());
             m.setReleased(movie.getReleasedDate());
           
@@ -37,7 +39,10 @@ public class ClassConversion {
             s.setGenre(show.getGenreId());
             s.setNoSeasons(show.getNoSeasons());
             s.setDirector(show.getDirector());
-            s.setImage(new String(show.getThumbnail()));
+            if(show.getThumbnail()!=null){
+                s.setImage(new String(show.getThumbnail()));
+            }
+            
             s.setProducer(show.getProducer());
             s.setReleased(show.getReleasedOn());
             s.setId(show.getShowsId());

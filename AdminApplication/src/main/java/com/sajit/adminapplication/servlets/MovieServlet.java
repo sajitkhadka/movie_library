@@ -100,6 +100,10 @@ public class MovieServlet extends HttpServlet {
             
             
             int length = Integer.parseInt(request.getParameter("length"));
+             if(request.getParameter("genre")== null){
+              request.setAttribute("error", "Please choose a genre");
+                processRequest(request, response);
+             }
             int genreId = Integer.parseInt(request.getParameter("genre"));
             
             

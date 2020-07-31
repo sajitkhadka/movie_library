@@ -63,7 +63,11 @@ public class AddMovieServlet extends HttpServlet {
             throws ServletException, IOException {
              String title = request.getParameter("title");   
         
-              if(title.equals("") || request.getParameter("length").equals("") || request.getParameter("genre").equals("")){
+             if(request.getParameter("genre")== null){
+              request.setAttribute("error", "Please choose a genre");
+                processRequest(request, response);
+             }
+              if(title.equals("") || request.getParameter("length").equals("") ){
                   request.setAttribute("error", "Please fill title, duration and genre.");
                 processRequest(request, response);
              }
@@ -71,6 +75,10 @@ public class AddMovieServlet extends HttpServlet {
             
             
             int length = Integer.parseInt(request.getParameter("length"));
+             if(request.getParameter("genre")== null){
+              request.setAttribute("error", "Please choose a genre");
+                processRequest(request, response);
+             }
             int genreId = Integer.parseInt(request.getParameter("genre"));
             
            if(length<=0){

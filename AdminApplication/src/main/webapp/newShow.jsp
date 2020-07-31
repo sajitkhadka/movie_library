@@ -37,9 +37,9 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="released" class="col-sm-4 col-form-label">First Episode: </label>
+                      <label for="released" class="col-sm-4 col-form-label">First Episode Released: </label>
                       <div class="col-sm-8">
-                        <input type="date" name="released" class="form-control" id="released" required val="<c:out value="${show.releasedOn}" ></c:out>">
+                        <input type="date" name="released" class="form-control" id="released"  val="<c:out value="${show.releasedOn}" ></c:out>">
                       </div>
                     </div>
                      <div class="form-group row">
@@ -51,7 +51,7 @@
                       <div class="form-group row">
                         <label for="genre" class="col-sm-4 col-form-label">Genre</label>
                         <div class="col-sm-8">
-                            <select id="genre" name="genre" class="form-control" value="<c:out value="${show.genreId.genreId}"></c:out>">   
+                            <select id="genre" name="genre" class="form-control" required value="<c:out value="${show.genreId.genreId}"></c:out>">   
                           <option selected disabled>Choose...</option>
                            <c:forEach var="genre" items="${genres}">
                           <option <c:out value="${show.genreId.genreId eq genre.genreId?'selected':''}"></c:out> value=${genre.genreId}>${genre.genre}</option>
