@@ -3,7 +3,6 @@ import logo from "../img/logo.svg";
 import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 import Container from "./components/container";
-import { Link as Lin } from "react-scroll";
 
 var Nav = styled.nav`
   z-index: 1;

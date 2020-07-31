@@ -4,6 +4,7 @@ import { Container, Row } from "reactstrap";
 import axios from "axios";
 import Navbar from "../layout/navbar";
 import Spinner from "../components/spinner-component";
+import { port } from "../utils/server";
 
 // const m = [
 //   {
@@ -50,7 +51,7 @@ export default function Browse() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8888/RestServiceClient/api/movie")
+      .get(`http://localhost:${port}/RestServiceClient/api/movie`)
       .then((response) => {
         setMovies(response.data);
         if (response.data.length <= 0) {

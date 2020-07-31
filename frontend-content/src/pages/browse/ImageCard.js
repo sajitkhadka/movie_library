@@ -21,11 +21,8 @@ export default function ImageCard(props) {
                 ? `data:image/jpeg;base64,${value.image}`
                 : defaultImage
             }
-            alt="Card image cap"
+            alt={props.movie ? "movie" : props.show ? "show" : "error"}
           />
-          {/* <CardBody>
-          <CardText>Sons of Anarchy</CardText>
-        </CardBody> */}
           <CardTitle className="text-center">{value.title}</CardTitle>
         </Card>
       </Link>

@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../layout/navbar";
-import styled from "styled-components";
 import { Card } from "reactstrap";
 import Spinner from "../components/spinner-component";
 import axios from "axios";
 
 import defaultImage from "../img/default.jpg";
+import { port } from "../utils/server";
 
 import {
   Metadata,
@@ -19,11 +19,10 @@ const HomePage = function (props) {
 
   const [error, setError] = useState("");
 
-  //`http://localhost:8080/RestServiceClient/api/show/id/${props.history.match.params.title}
   useEffect(() => {
     axios
       .get(
-        `http://localhost:8888/RestServiceClient/api/show/id/${props.match.params.id}`
+        `http://localhost:${port}/RestServiceClient/api/show/id/${props.match.params.id}`
       )
       .then((response) => {
         setShow(response.data);
@@ -33,8 +32,6 @@ const HomePage = function (props) {
         setError("Couldn't load the data.");
       });
   }, []);
-
-  console.log(show);
 
   return (
     <React.Fragment>
@@ -58,7 +55,7 @@ const HomePage = function (props) {
                       {show.released ? show.released.year : ""}
                     </MetadataItem>
                     <MetadataItem>
-                      <span class="maturity-rating">
+                      <span className="maturity-rating">
                         <span
                           style={{
                             border: "1px solid #a1a1a1",
@@ -70,8 +67,8 @@ const HomePage = function (props) {
                       </span>
                     </MetadataItem>
                     <MetadataItem>
-                      <span class="duration">
-                        <span class="test_dur_str">
+                      <span className="duration">
+                        <span className="test_dur_str">
                           {show.noSeasons} seasons
                         </span>
                       </span>
@@ -80,12 +77,7 @@ const HomePage = function (props) {
                   </Metadata>
 
                   <Synopsis>
-                    <div
-                      class="title-info-synopsis"
-                      data-uia="title-info-synopsis"
-                    >
-                      {show.synopsis}
-                    </div>
+                    <div className="title-info-synopsis">{show.synopsis}</div>
                     <Creators>
                       <div>
                         <span

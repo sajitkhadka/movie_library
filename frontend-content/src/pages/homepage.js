@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import mainImage from "../img/landing-page/netflix.svg";
 import Navbar from "../layout/navbar";
 

@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import mainImage from "../img/landing-page/netflix.svg";
+import React, { useState, useEffect } from "react";
 import Navbar from "../layout/navbar";
-import styled from "styled-components";
 import { Card } from "reactstrap";
 import Spinner from "../components/spinner-component";
 import axios from "axios";
@@ -15,6 +13,7 @@ import {
   Synopsis,
   Creators,
 } from "./styled-components/components";
+import { port } from "../utils/server";
 const HomePage = function (props) {
   const [movie, setMovie] = useState(null);
 
@@ -24,7 +23,7 @@ const HomePage = function (props) {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:8888/RestServiceClient/api/movie/id/${props.match.params.id}`
+        `http://localhost:${port}/RestServiceClient/api/movie/id/${props.match.params.id}`
       )
       .then((response) => {
         setMovie(response.data);
@@ -58,7 +57,7 @@ const HomePage = function (props) {
                       {movie.released ? movie.released.year : ""}
                     </MetadataItem>
                     <MetadataItem>
-                      <span class="maturity-rating">
+                      <span className="maturity-rating">
                         <span
                           style={{
                             border: "1px solid #a1a1a1",
@@ -70,20 +69,15 @@ const HomePage = function (props) {
                       </span>
                     </MetadataItem>
                     <MetadataItem>
-                      <span class="duration">
-                        <span class="test_dur_str">{movie.length} min</span>
+                      <span className="duration">
+                        <span className="test_dur_str">{movie.length} min</span>
                       </span>
                     </MetadataItem>
                     {/* <MetadataItem>{movie.genre.genre}</MetadataItem> */}
                   </Metadata>
 
                   <Synopsis>
-                    <div
-                      class="title-info-synopsis"
-                      data-uia="title-info-synopsis"
-                    >
-                      {movie.synopsis}
-                    </div>
+                    <div className="title-info-synopsis">{movie.synopsis}</div>
                     <Creators>
                       <div>
                         <span

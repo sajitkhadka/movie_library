@@ -1,33 +1,26 @@
 import React from "react";
-import { Container, Row, Col, Button, Card } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 import ImageCard from "./ImageCard";
-import { Link } from "react-router-dom";
 
 const ImageRow = (props) => {
   return (
     <div>
       <Container className="themed-container">
-        {/* <Row className="pr-4 pl-4">
-            <div className="d-flex justify-content-between w-100">
-              <h4>Action</h4>
-              <Link to="/movie/action">View All</Link>
-            </div>
-          </Row> */}
         <Row xs="1" sm="2" lg="3" xl="4" className="mb-4">
           {props.movies
-            ? props.movies.map((movie) => {
+            ? props.movies.map((movie, i) => {
                 return (
                   <Col>
-                    <ImageCard movie={movie} />
+                    <ImageCard movie={movie} key={i} />
                   </Col>
                 );
               })
             : ""}
 
           {props.shows
-            ? props.shows.map((show) => {
+            ? props.shows.map((show, i) => {
                 return (
-                  <Col>
+                  <Col key={i}>
                     <ImageCard show={show} />
                   </Col>
                 );
