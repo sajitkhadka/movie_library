@@ -102,21 +102,17 @@ public class MovieServlet extends HttpServlet {
             int length = Integer.parseInt(request.getParameter("length"));
             int genreId = Integer.parseInt(request.getParameter("genre"));
             
+            
+            //custom created utility class to convert image path to byte
             byte[] image = ImageUtility.ImagePartToByte64(request.getPart("thumbnail"));
             
-//            Part filePart = request.getPart("thumbnail"); // Retrieves <input type="file" name="file">
-            //String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-//            InputStream fileContent = filePart.getInputStream();
-//            
-//            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-//            byte[] buffer = new byte[(int)filePart.getSize()];
-//            filePart.getInputStream().read(buffer,0,buffer.length);
-//            bytes.write(buffer);
-//            
-//            byte[] encoded = Base64.getEncoder().encode(buffer);
             String producer = request.getParameter("producer");  
             String director = request.getParameter("director");
             String synopsis = request.getParameter("synopsis");
+            if(length<=0){
+                request.setAttribute("error", "Movie length cannot be 0 or less.");
+                processRequest(request, response);
+           }
                  
               MovieServiceService service = new MovieServiceService();
               MovieService port = service.getMovieServicePort();

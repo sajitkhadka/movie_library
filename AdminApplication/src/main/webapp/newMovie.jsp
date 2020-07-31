@@ -29,23 +29,23 @@
                   <div class="my-card">
                  <form  action="<c:out value="${edit?'movies':'add-movies'}" ></c:out>" method="post" enctype="multipart/form-data">
                  
-                    <input type="hidden" value="<c:out value="${movie.moviesId}"></c:out>" name="id" >
+                    <input type="hidden" value="<c:out value="${movie.moviesId}"></c:out>" name="id" required>
                     <div class="form-group row">
                       <label for="title" class="col-sm-4 col-form-label">Title</label>
                       <div class="col-sm-8">
-                        <input type="text" name="title" class="form-control" id="title" placeholder="" value="<c:out value="${movie.title}" ></c:out>">
+                          <input type="text" name="title" class="form-control" id="title" placeholder="" required value="<c:out value="${movie.title}" ></c:out>">
                       </div>
                     </div>
                     <div class="form-group row">
                       <label for="released" class="col-sm-4 col-form-label">Release Date</label>
                       <div class="col-sm-8">
-                        <input type="date" name="released" class="form-control" id="released" val="<c:out value="${movie.releasedDate}" ></c:out>">
+                        <input type="date" name="released" class="form-control" id="released" required val="<c:out value="${movie.releasedDate}" ></c:out>">
                       </div>
                     </div>
                      <div class="form-group row">
                       <label for="length" class="col-sm-4 col-form-label">Length(minutes)</label>
                       <div class="col-sm-8">
-                        <input type="number" class="form-control" id="length" name="length" placeholder="" value="<c:out value="${movie.length}" ></c:out>">
+                        <input type="number" class="form-control" id="length" name="length" required placeholder="" value="<c:out value="${movie.length}" ></c:out>">
                       </div>
                     </div>
                       <div class="form-group row">

@@ -1,19 +1,21 @@
 <?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://services.movielibrarysoapwebapp.sajit.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="GenreServiceService" targetNamespace="http://services.movielibrarysoapwebapp.sajit.com/">
   <wsdl:types>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://services.movielibrarysoapwebapp.sajit.com/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://services.movielibrarysoapwebapp.sajit.com/">
+  <xs:element name="addGenre" type="tns:addGenre"/>
+  <xs:element name="addGenreResponse" type="tns:addGenreResponse"/>
   <xs:element name="deleteGenre" type="tns:deleteGenre"/>
   <xs:element name="deleteGenreResponse" type="tns:deleteGenreResponse"/>
+  <xs:element name="editGenre" type="tns:editGenre"/>
+  <xs:element name="editGenreResponse" type="tns:editGenreResponse"/>
   <xs:element name="genre" type="tns:genre"/>
   <xs:element name="getGenre" type="tns:getGenre"/>
   <xs:element name="getGenreResponse" type="tns:getGenreResponse"/>
-  <xs:element name="setGenre" type="tns:setGenre"/>
-  <xs:element name="setGenreResponse" type="tns:setGenreResponse"/>
-  <xs:complexType name="setGenre">
+  <xs:complexType name="addGenre">
     <xs:sequence>
       <xs:element minOccurs="0" name="genre" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="setGenreResponse">
+  <xs:complexType name="addGenreResponse">
     <xs:sequence>
       <xs:element name="return" type="xs:boolean"/>
     </xs:sequence>
@@ -30,6 +32,17 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="genre" type="xs:string"/>
       <xs:element minOccurs="0" name="genreId" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="editGenre">
+    <xs:sequence>
+      <xs:element name="genreId" type="xs:int"/>
+      <xs:element minOccurs="0" name="genre" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="editGenreResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="deleteGenre">
@@ -50,8 +63,8 @@
   </xs:complexType>
 </xs:schema>
   </wsdl:types>
-  <wsdl:message name="setGenre">
-    <wsdl:part element="tns:setGenre" name="parameters">
+  <wsdl:message name="addGenreResponse">
+    <wsdl:part element="tns:addGenreResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="getGenreResponse">
@@ -62,8 +75,16 @@
     <wsdl:part element="tns:getGenre" name="parameters">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="editGenre">
+    <wsdl:part element="tns:editGenre" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="deleteGenre">
     <wsdl:part element="tns:deleteGenre" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addGenre">
+    <wsdl:part element="tns:addGenre" name="parameters">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="deleteGenreResponse">
@@ -74,15 +95,15 @@
     <wsdl:part element="tns:Exception" name="Exception">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="setGenreResponse">
-    <wsdl:part element="tns:setGenreResponse" name="parameters">
+  <wsdl:message name="editGenreResponse">
+    <wsdl:part element="tns:editGenreResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="GenreService">
-    <wsdl:operation name="setGenre">
-      <wsdl:input message="tns:setGenre" name="setGenre">
+    <wsdl:operation name="addGenre">
+      <wsdl:input message="tns:addGenre" name="addGenre">
     </wsdl:input>
-      <wsdl:output message="tns:setGenreResponse" name="setGenreResponse">
+      <wsdl:output message="tns:addGenreResponse" name="addGenreResponse">
     </wsdl:output>
       <wsdl:fault message="tns:Exception" name="Exception">
     </wsdl:fault>
@@ -92,6 +113,14 @@
     </wsdl:input>
       <wsdl:output message="tns:getGenreResponse" name="getGenreResponse">
     </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="editGenre">
+      <wsdl:input message="tns:editGenre" name="editGenre">
+    </wsdl:input>
+      <wsdl:output message="tns:editGenreResponse" name="editGenreResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception">
+    </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="deleteGenre">
       <wsdl:input message="tns:deleteGenre" name="deleteGenre">
@@ -104,12 +133,12 @@
   </wsdl:portType>
   <wsdl:binding name="GenreServiceServiceSoapBinding" type="tns:GenreService">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="setGenre">
+    <wsdl:operation name="addGenre">
       <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="setGenre">
+      <wsdl:input name="addGenre">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="setGenreResponse">
+      <wsdl:output name="addGenreResponse">
         <soap:body use="literal"/>
       </wsdl:output>
       <wsdl:fault name="Exception">
@@ -124,6 +153,18 @@
       <wsdl:output name="getGenreResponse">
         <soap:body use="literal"/>
       </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="editGenre">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="editGenre">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="editGenreResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="deleteGenre">
       <soap:operation soapAction="" style="document"/>

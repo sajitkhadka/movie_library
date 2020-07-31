@@ -29,23 +29,23 @@
                   <div class="my-card">
                  <form  action="<c:out value="${edit?'shows':'add-shows'}" ></c:out>" method="post" enctype="multipart/form-data">
                  
-                    <input type="hidden" value="<c:out value="${show.showsId}"></c:out>" name="id" >
+                    <input type="hidden" value="<c:out value="${show.showsId}"></c:out>" name="id" required>
                     <div class="form-group row">
                       <label for="title" class="col-sm-4 col-form-label">Title</label>
                       <div class="col-sm-8">
-                        <input type="text" name="title" class="form-control" id="title" placeholder="title" value="<c:out value="${show.title}" ></c:out>">
+                        <input type="text" name="title" class="form-control" id="title" placeholder="title" required value="<c:out value="${show.title}" ></c:out>">
                       </div>
                     </div>
                     <div class="form-group row">
                       <label for="released" class="col-sm-4 col-form-label">First Episode: </label>
                       <div class="col-sm-8">
-                        <input type="date" name="released" class="form-control" id="released" val="<c:out value="${show.releasedOn}" ></c:out>">
+                        <input type="date" name="released" class="form-control" id="released" required val="<c:out value="${show.releasedOn}" ></c:out>">
                       </div>
                     </div>
                      <div class="form-group row">
                       <label for="seasons" class="col-sm-4 col-form-label">Number of Seasons</label>
                       <div class="col-sm-8">
-                        <input type="number" class="form-control" id="seasons" name="noSeasons" placeholder="" value="<c:out value="${show.noSeasons}" ></c:out>">
+                          <input type="number" class="form-control" id="seasons" name="noSeasons" required placeholder="" value="<c:out value="${show.noSeasons}" ></c:out>">
                       </div>
                     </div>
                       <div class="form-group row">
@@ -76,7 +76,7 @@
                      <div class="form-group row">
                       <label for="producer" class="col-sm-4 col-form-label">Producer</label>
                       <div class="col-sm-8">
-                          <input type="text" name="producer" class="form-control" id="director" value="<c:out value="${show.producer}"></c:out>">
+                          <input type="text" name="producer" class="form-control" id="director"  value="<c:out value="${show.producer}"></c:out>">
                       </div>
                     </div>
                      

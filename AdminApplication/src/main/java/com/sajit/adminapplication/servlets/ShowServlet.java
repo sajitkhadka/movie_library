@@ -74,8 +74,7 @@ public class ShowServlet extends HttpServlet {
             ShowService port2 = showservice.getShowServicePort();
             int id = Integer.parseInt(request.getParameter("id"));
             //change
-            //Shows show = port2.getShowById(id);
-            Shows show = port2.getMovieById(id);
+            Shows show = port2.getShowsById(id);
             request.setAttribute("show", show);
             RequestDispatcher dispatcher = request.getRequestDispatcher("./newShow.jsp");
             dispatcher.forward(request, response);
@@ -105,13 +104,16 @@ public class ShowServlet extends HttpServlet {
             int noSeasons = Integer.parseInt(request.getParameter("noSeasons"));
             int genreId = Integer.parseInt(request.getParameter("genre"));
             
-            //String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-            
+            //custom created utility class to convert image path to byte
             byte[] image = ImageUtility.ImagePartToByte64(request.getPart("thumbnail"));
             String producer = request.getParameter("producer");  
             String director = request.getParameter("director");
             String synopsis = request.getParameter("synopsis");
                  
+            if(noSeasons<=0){
+                request.setAttribute("error", "Movie length cannot be 0 or less.");
+                processRequest(request, response);
+           }
               ShowServiceService service = new ShowServiceService();
               ShowService port = service.getShowServicePort();
             try {

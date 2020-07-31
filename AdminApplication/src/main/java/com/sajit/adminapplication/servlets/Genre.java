@@ -53,9 +53,7 @@ public class Genre extends HttpServlet {
         GenreService port = service.getGenreServicePort();
         
         try {
-            //change
-            //port.addGenre(genre);
-            port.setGenre(genre);
+            port.addGenre(genre);
               
             request.setAttribute("success", "Successfully added a genre.");
             processRequest(request, response);

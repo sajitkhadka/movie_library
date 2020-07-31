@@ -73,10 +73,16 @@ public class AddShowServlet extends HttpServlet {
             int noSeasons = Integer.parseInt(request.getParameter("noSeasons"));
             int genreId = Integer.parseInt(request.getParameter("genre"));
             
+            //custom created utility class to convert image path to byte
             byte[] image = ImageUtility.ImagePartToByte64(request.getPart("thumbnail"));
             String producer = request.getParameter("producer");  
             String director = request.getParameter("director");
             String synopsis = request.getParameter("synopsis");
+            
+            if(noSeasons<=0){
+                request.setAttribute("error", "No of seasons cannot be 0 or less.");
+                processRequest(request, response);
+           }
                  
               ShowServiceService service = new ShowServiceService();
               ShowService port = service.getShowServicePort();

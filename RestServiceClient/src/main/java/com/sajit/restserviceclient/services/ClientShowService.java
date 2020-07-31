@@ -71,9 +71,8 @@ public class ClientShowService {
          ShowServiceService service = new ShowServiceService();
         ShowService port = service.getShowServicePort();
          
-        //Change 
-        // Show movie = ClassConversion.ShowConvert(port.getShowsById(id));
-         Show movie = ClassConversion.ShowConvert(port.getMovieById(id));
+      
+         Show movie = ClassConversion.ShowConvert(port.getShowsById(id));
         if(movie!= null){
             Gson gson = new Gson();
             return Response.ok(gson.toJson(movie)).build();

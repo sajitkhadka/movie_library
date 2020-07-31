@@ -73,7 +73,12 @@ public class AddMovieServlet extends HttpServlet {
             int length = Integer.parseInt(request.getParameter("length"));
             int genreId = Integer.parseInt(request.getParameter("genre"));
             
+           if(length<=0){
+                request.setAttribute("error", "Movie length cannot be 0 or less.");
+                processRequest(request, response);
+           }
            
+           //custom created utility class to convert image path to byte
             byte[] image = ImageUtility.ImagePartToByte64(request.getPart("thumbnail"));
             String producer = request.getParameter("producer");  
             String director = request.getParameter("director");
